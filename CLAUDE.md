@@ -19,7 +19,7 @@ Qualitative criteria are forwarded, not filtered: the orchestrator sets `state.q
 
 ### The screener plugin
 
-This repo holds four sources on the `jaspers/sec` connection (`screen` is `screen_companies`, `stats` is `screener_field_stats`, `qualitative` is `screen_qualitative` and `qualitative-status` its job's progress) and one view, the Jaspers frontend screener's definition restyled square.
+This repo holds four sources on the `jaspers/screener` connection (`screen` is `screen_companies`, `stats` is `screener_field_stats`, `qualitative` is `screen_qualitative` and `qualitative-status` its job's progress) and one view, the Jaspers frontend screener's definition restyled square.
 
 - `screener.ts` is the pure half, tested in `screener.test.ts`: the filter, state, and output shapes, the 29 columns and the 43 fields a range can be set on with their labels and units, `cellText`, `toDisplay` and `fromDisplay` (fractions to %, USD to $M), `filterChips`, and `summarize`.
 - `ScreenerView.tsx` runs `screener/screen` with `{ filters: { ...filters, sort }, limit: 200, offset: page * 200 }` and publishes `{ tickers, count, total, filters, sort }`. Changing `filters` or `sort` re-runs the source. The sort rides inside the filters because the server sorts every match and a page cannot.

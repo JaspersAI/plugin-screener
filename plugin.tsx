@@ -4,7 +4,7 @@ import { INSTRUCTIONS } from './instructions'
 import { ScreenerView } from './ScreenerView'
 import { summarize, type Output, type State } from './screener'
 
-// The first plugin: a stock screener on the jaspers plugin's connection, jaspers/sec. Two sources,
+// The first plugin: a stock screener on the jaspers plugin's connection, jaspers/screener. Two sources,
 // one view. The schemas here are the contract with the orchestrator — what it may set, and what it
 // may read back — so they are the frontend screener's filter dimensions exactly, in raw units.
 
@@ -73,27 +73,27 @@ const OutputSchema = z.object({
 })
 
 const screen = defineSource({
-  mcp: 'jaspers/sec',
+  mcp: 'jaspers/screener',
   tool: 'screen_companies',
   description:
     'Screen the ~7,100-company universe by fundamentals, market data, insider activity, and index membership. Filters in raw units.',
 })
 
 const stats = defineSource({
-  mcp: 'jaspers/sec',
+  mcp: 'jaspers/screener',
   tool: 'screener_field_stats',
   description: 'Distribution stats for up to 8 numeric screener fields. Use before screening to pick thresholds.',
 })
 
 const qualitative = defineSource({
-  mcp: 'jaspers/sec',
+  mcp: 'jaspers/screener',
   tool: 'screen_qualitative',
   description:
     'Start an exhaustive qualitative screen: a reader judges every company matching the filters against one yes/no question, with a quote each. Returns a job_id. When a screener element is on screen, set its state.qualitative.question instead; it runs and pins the matches itself.',
 })
 
 const qualitativeStatus = defineSource({
-  mcp: 'jaspers/sec',
+  mcp: 'jaspers/screener',
   tool: 'screen_qualitative_status',
   description: 'Progress and, when done, the matched tickers with quotes, the unclear and no-data lists, for a qualitative screen job.',
 })
