@@ -20,7 +20,7 @@ None.
 
 ## Needs
 
-Install [`plugin-jaspers`](https://github.com/JaspersAI/plugin-jaspers) too: this plugin's sources run on its `jaspers/screener` connection (plugin-jaspers 2.0.0 or later).
+Install [`plugin-jaspers`](https://github.com/JaspersAI/plugin-jaspers) too, version 2.0.0 or later: this plugin's sources run on its `jaspers/screener` connection.
 
 ## Develop
 
