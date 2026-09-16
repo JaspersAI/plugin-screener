@@ -165,7 +165,7 @@ test('a question starts its job unless the view already did: a job id, or a fail
   assert.equal(needsStart({ question: 'Profitable companies?', focusTerms: [], form: '10-K', refine: false, jobId: '', status: 'done', total: 0, done: 0, matched: 0, unclear: 0, noData: 0, error: '' }), true)
   assert.equal(needsStart({ question: 'Profitable companies?', jobId: 'job_1', status: 'running' }), false)
   assert.equal(needsStart({ question: 'Profitable companies?', jobId: 'job_1', status: 'done' }), false)
-  assert.equal(needsStart({ question: 'Profitable companies?', status: 'error', error: 'jaspers/screener is connecting' }), false)
+  assert.equal(needsStart({ question: 'Profitable companies?', status: 'error', error: 'screener/jaspers is connecting' }), false)
   assert.equal(needsStart(undefined), false)
   assert.equal(needsStart({ question: '' }), false)
 })

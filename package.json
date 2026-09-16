@@ -1,6 +1,6 @@
 {
   "name": "screener",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A stock screener for Jaspers Terminal: about 7,100 SEC filers by fundamentals, with qualitative questions answered from filings.",
   "license": "MIT",
   "private": true,

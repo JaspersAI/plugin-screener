@@ -1,12 +1,13 @@
-import { definePlugin, defineSource, defineView } from '@jaspers-ai/sdk'
+import { defineConnection, definePlugin, defineSource, defineView } from '@jaspers-ai/sdk'
 import { z } from 'zod'
 import { INSTRUCTIONS } from './instructions'
 import { ScreenerView } from './ScreenerView'
 import { summarize, type Output, type State } from './screener'
 
-// The first plugin: a stock screener on the jaspers plugin's connection, jaspers/screener. Two sources,
-// one view. The schemas here are the contract with the orchestrator — what it may set, and what it
-// may read back — so they are the frontend screener's filter dimensions exactly, in raw units.
+// The first plugin: a stock screener on the Jaspers screener MCP, its own connection, screener/jaspers,
+// with its own Jaspers API key. Four sources, one view. The schemas here are the contract with the
+// orchestrator — what it may set, and what it may read back — so they are the frontend screener's
+// filter dimensions exactly, in raw units.
 
 const Range = z.object({ min: z.number().optional(), max: z.number().optional() })
 
@@ -73,33 +74,53 @@ const OutputSchema = z.object({
 })
 
 const screen = defineSource({
-  mcp: 'jaspers/screener',
+  mcp: 'jaspers',
   tool: 'screen_companies',
   description:
     'Screen the ~7,100-company universe by fundamentals, market data, insider activity, and index membership. Filters in raw units.',
 })
 
 const stats = defineSource({
-  mcp: 'jaspers/screener',
+  mcp: 'jaspers',
   tool: 'screener_field_stats',
   description: 'Distribution stats for up to 8 numeric screener fields. Use before screening to pick thresholds.',
 })
 
 const qualitative = defineSource({
-  mcp: 'jaspers/screener',
+  mcp: 'jaspers',
   tool: 'screen_qualitative',
   description:
     'Start an exhaustive qualitative screen: a reader judges every company matching the filters against one yes/no question, with a quote each. Returns a job_id. When a screener element is on screen, set its state.qualitative.question instead; it runs and pins the matches itself.',
 })
 
 const qualitativeStatus = defineSource({
-  mcp: 'jaspers/screener',
+  mcp: 'jaspers',
   tool: 'screen_qualitative_status',
   description: 'Progress and, when done, the matched tickers with quotes, the unclear and no-data lists, for a qualitative screen job.',
 })
 
 export default definePlugin({
   id: 'screener',
+  secrets: { token: { label: 'Jaspers API key' } },
+  connections: {
+    jaspers: defineConnection({
+      url: 'https://analyst-api.jsprai.com/mcp/open',
+      auth: 'bearer',
+      headers: { Authorization: 'Bearer ${secret:token}' },
+      tools: [
+        'screen_companies',
+        'screener_field_stats',
+        'search_filing_text',
+        'list_filing_sections',
+        'fetch_filing_sections',
+        'list_insider_activity',
+        'screen_qualitative',
+        'screen_qualitative_status',
+        'get_guide',
+        'show_citations',
+      ],
+    }),
+  },
   sources: { screen, stats, qualitative, 'qualitative-status': qualitativeStatus },
   views: {
     screener: defineView(ScreenerView, {
