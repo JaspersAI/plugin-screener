@@ -1,0 +1,333 @@
+/* The screener's own CSS. A plugin view is an iframe of its own, so there is no Tailwind and no
+   theme here: plain classes, the house style by hand. Square everything, one grey line (#e5e5e5),
+   muted text at #737373, 13px in the table, and no accent colour but the sign of a number. */
+
+.sc-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  color: #171717;
+  font: 13px/1.45 system-ui, -apple-system, sans-serif;
+}
+
+/* The two bars: filters and counts above, paging and status below. */
+
+.sc-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.sc-foot {
+  border-bottom: 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.sc-btn {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #171717;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.sc-btn:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.sc-btn:disabled {
+  color: #a3a3a3;
+  cursor: default;
+}
+
+.sc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  padding: 1px 3px 1px 6px;
+  white-space: nowrap;
+}
+
+.sc-chip-x {
+  border: 0;
+  background: none;
+  color: #737373;
+  cursor: pointer;
+  padding: 0 3px;
+  line-height: 1;
+}
+
+.sc-chip-x:hover {
+  color: #171717;
+}
+
+.sc-input {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #171717;
+  padding: 2px 6px;
+  outline: none;
+}
+
+.sc-input:focus {
+  border-color: #171717;
+}
+
+.sc-count {
+  margin-left: auto;
+  color: #737373;
+  white-space: nowrap;
+}
+
+.sc-status {
+  color: #737373;
+  white-space: nowrap;
+}
+
+.sc-error {
+  color: #dc2626;
+  white-space: normal;
+}
+
+/* The table fills what is left and scrolls both ways; nothing else on the page moves. */
+
+.sc-table-wrap {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.sc-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  width: max-content;
+  min-width: 100%;
+}
+
+.sc-table th,
+.sc-table td {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.sc-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fff;
+  text-align: left;
+  font-weight: 500;
+  color: #737373;
+  padding: 0;
+}
+
+.sc-sort {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: right;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.sc-sort:hover {
+  color: #171717;
+}
+
+.sc-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sc-up {
+  color: #15803d;
+}
+
+.sc-down {
+  color: #b91c1c;
+}
+
+/* The company column stays put while the numbers scroll past it. */
+
+.sc-company {
+  position: sticky;
+  left: 0;
+  background: #fff;
+  z-index: 2;
+  padding: 3px 8px;
+  text-align: left;
+  min-width: 190px;
+}
+
+th.sc-company {
+  z-index: 3;
+  padding: 4px 8px;
+}
+
+.sc-ticker {
+  font-weight: 600;
+}
+
+.sc-name {
+  display: block;
+  color: #737373;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sc-table tbody tr:hover td {
+  background: #f5f5f5;
+}
+
+.sc-empty {
+  padding: 12px;
+  color: #737373;
+}
+
+/* The filter dialog: a panel over the view, not a portal and not a window. */
+
+.sc-dialog {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px;
+  background: rgba(23, 23, 23, 0.15);
+}
+
+.sc-dialog-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 760px;
+  max-height: 100%;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.sc-dialog-head,
+.sc-dialog-foot {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+}
+
+.sc-dialog-head {
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: 600;
+}
+
+.sc-dialog-foot {
+  border-top: 1px solid #e5e5e5;
+  justify-content: flex-end;
+}
+
+.sc-dialog-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 10px;
+}
+
+.sc-section {
+  margin-bottom: 12px;
+}
+
+.sc-label {
+  display: block;
+  margin-bottom: 4px;
+  color: #737373;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sc-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.sc-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sc-check input {
+  accent-color: #171717;
+}
+
+.sc-two {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px 16px;
+}
+
+.sc-ranges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 4px 16px;
+}
+
+.sc-range {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sc-range-label {
+  flex: 0 0 120px;
+  color: #737373;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sc-range .sc-input {
+  width: 100%;
+  min-width: 0;
+}
+
+.sc-unit {
+  color: #a3a3a3;
+}
+
+/* The question chip carries a sentence; its text truncates and its cross stays. */
+.sc-chip.sc-q {
+  display: inline-flex;
+  align-items: center;
+  max-width: 480px;
+  min-width: 0;
+}
+.sc-q-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A ticker with a quote behind it from a qualitative screen; the quote is its tooltip. */
+.sc-quoted {
+  border-bottom: 1px dotted #737373;
+  cursor: help;
+}
+

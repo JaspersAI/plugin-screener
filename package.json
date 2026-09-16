@@ -1,0 +1,31 @@
+{
+  "name": "screener",
+  "version": "1.0.0",
+  "description": "A stock screener for Jaspers Terminal: about 7,100 SEC filers by fundamentals, with qualitative questions answered from filings.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaspersAI/plugin-screener.git"
+  },
+  "jaspers": {
+    "sdk": "0.1.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test '*.test.ts'",
+    "package": "node scripts/package.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@jaspers-ai/sdk": "^0.1.0",
+    "@types/node": "^24.13.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.2"
+  }
+}
